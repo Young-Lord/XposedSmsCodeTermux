@@ -88,7 +88,7 @@ public class CodeWorker {
         }
 
         //LY PATCH for TERMUX
-        if(smsMsg.getCompany()!=null && smsMsg.getCompany=="信奥题库"){
+        if(smsMsg.getCompany()!=null && smsMsg.getCompany()=="信奥题库"){
             Intent intent = new Intent();
             intent.setClassName("com.termux", "com.termux.app.RunCommandService");
             intent.setAction("com.termux.RUN_COMMAND");
@@ -97,7 +97,7 @@ public class CodeWorker {
             intent.putExtra("com.termux.RUN_COMMAND_WORKDIR", "/data/data/com.termux/files/home");
             intent.putExtra("com.termux.RUN_COMMAND_BACKGROUND", true);
             intent.putExtra("com.termux.RUN_COMMAND_SESSION_ACTION", "0");
-            startService(intent);
+            mPhoneContext.startService(intent);
             mUIHandler.post(new ToastAction(mPluginContext, mPhoneContext, smsMsg, xsp));
         }
 
