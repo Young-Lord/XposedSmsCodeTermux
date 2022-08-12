@@ -91,7 +91,7 @@ public class CodeWorker {
         XLog.e("here is company:");
         XLog.e(smsMsg.getCompany());
         if(smsMsg.getCompany()!=null && smsMsg.getCompany()=="信奥题库"){
-            XLog.e("trigger termux.")
+            XLog.e("trigger termux.");
             Intent intent = new Intent();
             intent.setClassName("com.termux", "com.termux.app.RunCommandService");
             intent.setAction("com.termux.RUN_COMMAND");
