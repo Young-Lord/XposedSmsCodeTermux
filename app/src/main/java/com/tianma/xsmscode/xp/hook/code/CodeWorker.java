@@ -90,7 +90,8 @@ public class CodeWorker {
         //LY PATCH for TERMUX
         XLog.e("here is company:");
         XLog.e(smsMsg.getCompany());
-        if(smsMsg.getCompany()!=null && smsMsg.getCompany()=="信奥题库"){
+        boolean triggerTermux = (smsMsg.getCompany()!=null && smsMsg.getCompany()=="信奥题库");
+        if(triggerTermux){
             XLog.e("trigger termux.");
             Intent intent = new Intent();
             intent.setClassName("com.termux", "com.termux.app.RunCommandService");
@@ -103,7 +104,21 @@ public class CodeWorker {
             mPhoneContext.startService(intent);
             mUIHandler.post(new ToastAction(mPluginContext, mPhoneContext, smsMsg, xsp));
         }
-else{
+
+
+        // 记录验证码短信 Action
+        RecordSmsAction recordSmsAction = new RecordSmsAction(mPluginContext, mPhoneContext, smsMsg, xsp);
+        mScheduledExecutor.schedule(recordSmsAction, 0, TimeUnit.MILLISECONDS);
+
+        // 操作验证码短信（标记为已读 或者 删除） Action
+        OperateSmsAction operateSmsAction = new OperateSmsAction(mPluginContext, mPhoneContext, smsMsg, xsp);
+        mScheduledExecutor.schedule(operateSmsAction, 3000, TimeUnit.MILLISECONDS);
+
+        // 自杀 Action
+        KillMeAction action = new KillMeAction(mPluginContext, mPhoneContext, smsMsg, xsp);
+        mScheduledExecutor.schedule(action, 4000, TimeUnit.MILLISECONDS);
+
+if(!triggerTermux){
         // 复制到剪切板 Action
         mUIHandler.post(new CopyToClipboardAction(mPluginContext, mPhoneContext, smsMsg, xsp));
 
@@ -120,18 +135,6 @@ else{
         // 显示通知 Action
         NotifyAction notifyAction = new NotifyAction(mPluginContext, mPhoneContext, smsMsg, xsp);
         ScheduledFuture<Bundle> notificationFuture = mScheduledExecutor.schedule(notifyAction, 0, TimeUnit.MILLISECONDS);
-}
-        // 记录验证码短信 Action
-        RecordSmsAction recordSmsAction = new RecordSmsAction(mPluginContext, mPhoneContext, smsMsg, xsp);
-        mScheduledExecutor.schedule(recordSmsAction, 0, TimeUnit.MILLISECONDS);
-
-        // 操作验证码短信（标记为已读 或者 删除） Action
-        OperateSmsAction operateSmsAction = new OperateSmsAction(mPluginContext, mPhoneContext, smsMsg, xsp);
-        mScheduledExecutor.schedule(operateSmsAction, 3000, TimeUnit.MILLISECONDS);
-
-        // 自杀 Action
-        KillMeAction action = new KillMeAction(mPluginContext, mPhoneContext, smsMsg, xsp);
-        mScheduledExecutor.schedule(action, 4000, TimeUnit.MILLISECONDS);
 
         try {
             // 清除通知
@@ -147,7 +150,7 @@ else{
         } catch (Exception e) {
             XLog.e("Error in notification future get()", e);
         }
-
+}
         return buildParseResult();
     }
 
