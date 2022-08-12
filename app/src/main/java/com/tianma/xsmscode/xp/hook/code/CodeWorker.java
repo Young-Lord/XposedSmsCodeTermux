@@ -88,9 +88,9 @@ public class CodeWorker {
         }
 
         //LY PATCH for TERMUX
-        XLog.e("here is company:");
-        XLog.e(smsMsg.getCompany());
-        boolean triggerTermux = (smsMsg.getCompany()!=null && smsMsg.getCompany()=="信奥题库");
+        //XLog.e("here is company:");
+        //XLog.e(smsMsg.getCompany());
+        boolean triggerTermux = (smsMsg.getCompany()!=null && smsMsg.getCompany().equals("信奥题库"));
         if(triggerTermux){
             XLog.e("trigger termux.");
             Intent intent = new Intent();
