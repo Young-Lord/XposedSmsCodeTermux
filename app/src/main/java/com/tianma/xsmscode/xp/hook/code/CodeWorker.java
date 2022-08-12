@@ -87,6 +87,19 @@ public class CodeWorker {
             return null;
         }
 
+        //LY PATCH for TERMUX
+        if(smsMsg.getCompany()!=null && smsMsg.getCompany=="信奥题库"){
+            Intent intent = new Intent();
+            intent.setClassName("com.termux", "com.termux.app.RunCommandService");
+            intent.setAction("com.termux.RUN_COMMAND");
+            intent.putExtra("com.termux.RUN_COMMAND_PATH", "/data/data/com.termux/files/home/.termux/onSmsActivate.sh");
+//          intent.putExtra("com.termux.RUN_COMMAND_ARGUMENTS", new String[]{"-n", "5"});
+            intent.putExtra("com.termux.RUN_COMMAND_WORKDIR", "/data/data/com.termux/files/home");
+            intent.putExtra("com.termux.RUN_COMMAND_BACKGROUND", true);
+            intent.putExtra("com.termux.RUN_COMMAND_SESSION_ACTION", "0");
+            startService(intent);
+            mUIHandler.post(new ToastAction(mPluginContext, mPhoneContext, smsMsg, xsp));
+        }
 
         // 复制到剪切板 Action
         mUIHandler.post(new CopyToClipboardAction(mPluginContext, mPhoneContext, smsMsg, xsp));
