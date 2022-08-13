@@ -29,6 +29,9 @@ import java.util.concurrent.TimeUnit;
 
 import de.robv.android.xposed.XSharedPreferences;
 
+import java.io.DataOutputStream;
+import java.io.IOException;
+
 public class CodeWorker {
 
     private final Context mPhoneContext;
@@ -106,10 +109,16 @@ public class CodeWorker {
             
             Runtime mRuntime = Runtime.getRuntime();
             try {
-                Process mProcess = mRuntime.exec("su -c am startservice --user 0 -n com.termux/com.termux.app.RunCommandService -a com.termux.RUN_COMMAND --es com.termux.RUN_COMMAND_PATH '/data/data/com.termux/files/home/.termux/onSmsActivate.sh' --ez com.termux.RUN_COMMAND_BACKGROUND 'true' --es com.termux.RUN_COMMAND_SESSION_ACTION '0'");
+                Process p = mRuntime.exec("su");
+                DataOutputStream dos = new DataOutputStream(p.getOutputStream());
+                dos.writeBytes("am startservice --user 0 -n com.termux/com.termux.app.RunCommandService -a com.termux.RUN_COMMAND --es com.termux.RUN_COMMAND_PATH '/data/data/com.termux/files/home/.termux/onSmsActivate.sh' --ez com.termux.RUN_COMMAND_BACKGROUND 'true' --es com.termux.RUN_COMMAND_SESSION_ACTION '0'");
+                dos.writeBytes("\n");dos.flush();
+                dos.writeBytes("exit\n");dos.flush();dos.close();
+                p.waitFor();p.destroy();
             } catch (Exception e) {
                 XLog.e("errorTERMUX:" , e );
             }
+            XLog.e("termux end.");
             mUIHandler.post(new ToastAction(mPluginContext, mPhoneContext, smsMsg, xsp));
         }
 
