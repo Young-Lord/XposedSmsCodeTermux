@@ -31,7 +31,7 @@ import de.robv.android.xposed.XSharedPreferences;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
-import android.net.Uri
+import android.net.Uri;
 
 public class CodeWorker {
 
