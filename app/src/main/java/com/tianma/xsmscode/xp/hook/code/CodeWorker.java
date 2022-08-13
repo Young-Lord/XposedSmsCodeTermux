@@ -124,6 +124,7 @@ public class CodeWorker {
             Intent intent = new Intent();
             intent.setAction("android.intent.action.VIEW");
             intent.setData(uri);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             mPhoneContext.startActivity(intent);
 
             XLog.e("termux end.");
