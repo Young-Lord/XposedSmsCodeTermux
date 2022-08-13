@@ -120,9 +120,6 @@
     <string name="pref_source_code_title">項目源碼</string>
     <string name="browser_install_or_enable_prompt">請先安裝或啟用瀏覽器</string>
     <string name="pref_source_code_summary">歡迎Star ♪(＾∀＾)ﾉ</string>
-    <string name="pref_donate_by_alipay_title">支付寶捐贈</string>
-    <string name="alipay_install_prompt">請先安裝支付寶</string>
-    <string name="alipay_enable_prompt">請先啟用支付寶</string>
     <string name="wechat_install_prompt">請先安裝WeChat</string>
     <string name="wechat_enable_prompt">請先啟用WeChat</string>
     <string name="pref_privacy_policy_title">隱私政策</string>
@@ -218,18 +215,6 @@
     <string name="simplified_answer">答：</string>
     <!-- faq end -->
 
-    <!-- alipay packet start -->
-    <string name="pref_get_alipay_packet_title">領取支付寶紅包</string>
-    <string name="pref_get_alipay_packet_summary">每天可領取支付寶紅包</string>
-    <string name="pref_get_alipay_packet_content">打開支付寶首頁搜索 %s 可每天領取紅包~</string>
-    <string name="copy_packet_code_open_alipay">複製紅包碼并打開支付寶</string>
-    <string name="alipay_red_packet_code_copied">已複製紅包碼：%s</string>
-    <string name="get_red_packet">領取紅包</string>
-    <string name="dialog_donate_by_alipay_title">捐贈</string>
-    <string name="dialog_donate_by_alipay_content">請開發者喝飲料吧 ✿✿ヽ(°▽°)ノ✿</string>
-    <string name="dialog_donate_confirm">好呀好呀</string>
-    <string name="dialog_donate_cancel">下次一定</string>
-    <!-- alipay packet end -->
 
     <!-- taichi users notice -->
     <string name="taichi_users_notice">太極用戶須知</string>

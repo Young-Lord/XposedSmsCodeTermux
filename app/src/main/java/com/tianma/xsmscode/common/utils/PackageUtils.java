@@ -84,40 +84,6 @@ public class PackageUtils {
         return false;
     }
 
-    private static boolean checkAlipayExists(Context context) {
-        int packageState = checkPackageState(context, Const.ALIPAY_PACKAGE_NAME);
-        if (packageState == PACKAGE_ENABLED) {
-            return true;
-        } else if (packageState == PACKAGE_DISABLED) {
-            Toast.makeText(context, R.string.alipay_enable_prompt, Toast.LENGTH_SHORT).show();
-        } else if (packageState == PACKAGE_NOT_INSTALLED) {
-            Toast.makeText(context, R.string.alipay_install_prompt, Toast.LENGTH_SHORT).show();
-        }
-        return false;
-    }
-
-    /**
-     * 打开支付宝
-     */
-    public static void startAlipayActivity(Context context) {
-        if (checkAlipayExists(context)) {
-            PackageManager pm = context.getPackageManager();
-            Intent intent = pm.getLaunchIntentForPackage(Const.ALIPAY_PACKAGE_NAME);
-            context.startActivity(intent);
-        }
-    }
-
-    /**
-     * 打开支付宝捐赠页
-     */
-    public static void startAlipayDonatePage(Context context) {
-        if (checkAlipayExists(context)) {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(Const.ALIPAY_QRCODE_URI_PREFIX + Const.ALIPAY_QRCODE_URL));
-            context.startActivity(intent);
-        }
-    }
-
     public enum Section {
         INSTALL("install", 0),
         MODULES("modules", 1);
@@ -223,7 +189,7 @@ public class PackageUtils {
     }
 
     public static void showAppDetailsInCoolApk(Context context) {
-        int packageState = checkPackageState(context, Const.ALIPAY_PACKAGE_NAME);
+        int packageState = checkPackageState(context, "com.coolapk.market");
         if (packageState == PACKAGE_ENABLED) {
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

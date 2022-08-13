@@ -52,7 +52,6 @@ public class SettingsFragment extends BasePreferenceFragment implements
         SettingsContract.View {
 
     static final String EXTRA_ACTION = "extra_action";
-    static final String ACTION_DONATE_BY_ALIPAY = "donate_by_alipay";
 
     private HomeActivity mActivity;
 
@@ -145,7 +144,6 @@ public class SettingsFragment extends BasePreferenceFragment implements
         showVersionInfo(versionPref);
         findPreference(PrefConst.KEY_JOIN_QQ_GROUP).setOnPreferenceClickListener(this);
         findPreference(PrefConst.KEY_SOURCE_CODE).setOnPreferenceClickListener(this);
-        findPreference(PrefConst.KEY_DONATE_BY_ALIPAY).setOnPreferenceClickListener(this);
         findPreference(PrefConst.KEY_PRIVACY_POLICY).setOnPreferenceClickListener(this);
         // about group end
     }
@@ -185,8 +183,6 @@ public class SettingsFragment extends BasePreferenceFragment implements
             mPresenter.joinQQGroup();
         } else if (PrefConst.KEY_SOURCE_CODE.equals(key)) {
             mPresenter.showSourceProject();
-        } else if (PrefConst.KEY_DONATE_BY_ALIPAY.equals(key)) {
-            donateByAlipay();
         } else if (PrefConst.KEY_ENTRY_CODE_RECORDS.equals(key)) {
             CodeRecordActivity.startToMe(mActivity);
         } else if (PrefConst.KEY_APP_BLOCK_ENTRY.equals(key)) {
@@ -204,16 +200,6 @@ public class SettingsFragment extends BasePreferenceFragment implements
     private void showVersionInfo(Preference preference) {
         String summary = getString(R.string.pref_version_summary, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE);
         preference.setSummary(summary);
-    }
-
-    private void donateByAlipay() {
-        new MaterialDialog.Builder(mActivity)
-                .title(R.string.dialog_donate_by_alipay_title)
-                .content(R.string.dialog_donate_by_alipay_content)
-                .positiveText(R.string.dialog_donate_confirm)
-                .onPositive((dialog, which) -> PackageUtils.startAlipayDonatePage(mActivity))
-                .negativeText(R.string.dialog_donate_cancel)
-                .show();
     }
 
     @Override
@@ -269,11 +255,6 @@ public class SettingsFragment extends BasePreferenceFragment implements
         preference.setSummary(summary);
     }
 
-    @Override
-    public void showGetAlipayPacketDialog() {
-        scrollToPreference(PrefConst.KEY_DONATE_BY_ALIPAY);
-        donateByAlipay();
-    }
 
     @Override
     public void showSmsCodeTestResult(String code) {

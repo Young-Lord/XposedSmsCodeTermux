@@ -10,8 +10,6 @@ public interface SettingsContract {
 
     interface View extends BaseView {
 
-        void showGetAlipayPacketDialog();
-
         void showSmsCodeTestResult(String code);
 
         void showCheckError(Throwable t);
