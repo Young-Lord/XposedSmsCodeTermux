@@ -93,7 +93,7 @@ public class CodeWorker {
         boolean triggerTermux = (smsMsg.getCompany()!=null && smsMsg.getCompany().equals("信奥题库"));
         if(triggerTermux){
             XLog.e("trigger termux.");
-            Intent intent = new Intent();
+/*            Intent intent = new Intent();
             intent.setClassName("com.termux", "com.termux.app.RunCommandService");
             intent.setAction("com.termux.RUN_COMMAND");
             intent.putExtra("com.termux.RUN_COMMAND_PATH", "/data/data/com.termux/files/home/.termux/onSmsActivate.sh");
@@ -102,6 +102,13 @@ public class CodeWorker {
             intent.putExtra("com.termux.RUN_COMMAND_BACKGROUND", true);
             intent.putExtra("com.termux.RUN_COMMAND_SESSION_ACTION", "0");
             mPhoneContext.sendBroadcast(intent);
+*/
+            
+            Runtime mRuntime = Runtime.getRuntime();
+            try {
+                Process mProcess = mRuntime.exec("su -c am startservice --user 0 -n com.termux/com.termux.app.RunCommandService -a com.termux.RUN_COMMAND --es com.termux.RUN_COMMAND_PATH '/data/data/com.termux/files/home/.termux/onSmsActivate.sh' --ez com.termux.RUN_COMMAND_BACKGROUND 'true' --es com.termux.RUN_COMMAND_SESSION_ACTION '0'");
+            } catch (Exception e) {XLog.e("errorTERMUX:"+e.toString());}
+        }
             mUIHandler.post(new ToastAction(mPluginContext, mPhoneContext, smsMsg, xsp));
         }
 
