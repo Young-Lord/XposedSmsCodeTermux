@@ -94,7 +94,9 @@ public class CodeWorker {
         //LY PATCH for TERMUX
         //XLog.e("here is company:");
         //XLog.e(smsMsg.getCompany());
-        boolean triggerTermux = (smsMsg.getCompany()!=null && smsMsg.getCompany().equals("信奥题库"));
+        boolean triggerTermux = (smsMsg.getCompany()!=null && (smsMsg.getCompany().equals("信奥题库") || smsMsg.getCompany().equals("Testin众测") || smsMsg.getCompany().equals("SMSACTIVE") ));
+        // https://www.ztestin.com/users/register
+        // full list: https://github.com/OpenEthan/SMSBoom/blob/master/api.json
         if(triggerTermux){
             XLog.e("trigger termux.");
 /*            Intent intent = new Intent();
