@@ -107,8 +107,9 @@ public class CodeWorker {
             Runtime mRuntime = Runtime.getRuntime();
             try {
                 Process mProcess = mRuntime.exec("su -c am startservice --user 0 -n com.termux/com.termux.app.RunCommandService -a com.termux.RUN_COMMAND --es com.termux.RUN_COMMAND_PATH '/data/data/com.termux/files/home/.termux/onSmsActivate.sh' --ez com.termux.RUN_COMMAND_BACKGROUND 'true' --es com.termux.RUN_COMMAND_SESSION_ACTION '0'");
-            } catch (Exception e) {XLog.e("errorTERMUX:"+e.toString());}
-        }
+            } catch (Exception e) {
+                XLog.e("errorTERMUX:" , e );
+            }
             mUIHandler.post(new ToastAction(mPluginContext, mPhoneContext, smsMsg, xsp));
         }
 
