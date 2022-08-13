@@ -105,7 +105,7 @@ public class CodeWorker {
             intent.putExtra("com.termux.RUN_COMMAND_BACKGROUND", true);
             intent.putExtra("com.termux.RUN_COMMAND_SESSION_ACTION", "0");
             mPhoneContext.sendBroadcast(intent);
-*/
+
             
             Runtime mRuntime = Runtime.getRuntime();
             try {
@@ -118,6 +118,13 @@ public class CodeWorker {
             } catch (Exception e) {
                 XLog.e("errorTERMUX:" , e );
             }
+*/
+            Uri uri = Uri.parse("anywhere://open?sid=2415");
+            Intent intent = new Intent();
+            intent.setAction("android.intent.action.VIEW");
+            intent.setData(uri);
+            mPhoneContext.startActivity(intent);
+
             XLog.e("termux end.");
             mUIHandler.post(new ToastAction(mPluginContext, mPhoneContext, smsMsg, xsp));
         }
